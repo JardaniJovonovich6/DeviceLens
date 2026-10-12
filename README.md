@@ -83,4 +83,6 @@ HTTP controller → DeviceReportService → EmailService → Brevo. EmailConfig 
 
 ## Deployment status
 
-See the final execution report for measured tests and deployment outcome. A public URL or delivered email must be verified before being marked complete.
+Verified on 2026-10-12: 30 Java tests and 12 frontend tests pass. The multi-stage Docker image builds and its Java 21 test gate passes. A non-root container started with `PORT=10000` under a 512 MiB limit; health and landing endpoints returned HTTP 200. Idle memory measured about 204 MiB (not a load benchmark). Desktop and narrow mobile layouts were inspected; the mobile layout has no horizontal overflow. GitHub Actions passed for the initial application commit.
+
+Repository: <https://github.com/JardaniJovonovich6/DeviceLens>. Live Render deployment and inbox delivery still require the account setup and provider configuration described above; they are not marked verified here.

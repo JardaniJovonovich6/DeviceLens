@@ -14,7 +14,9 @@ test('landing page references only same-origin assets and has no sharing form', 
   assert.ok(!/<form\b/i.test(html)); assert.ok(!/share-button|Continue &amp; Share|BREVO_API_KEY/.test(html));
   const urls=[...html.matchAll(/(?:src|href)="([^"]+)"/g)].map(match=>match[1]);
   const external=urls.filter(url=>url.startsWith('http'));
-  assert.ok(external.every(url=>url.startsWith('https://developer.mozilla.org/')));
+  const allowedOrigins = new Set(['https://developer.mozilla.org', 'https://www.cisa.gov', 'https://github.com']);
+  assert.ok(external.every(url=>allowedOrigins.has(new URL(url).origin)));
+  assert.ok(html.includes('href="mailto:ashaw8176@gmail.com?subject=DeviceLens%20question"'));
   assert.ok(!/<script[^>]+src="https?:/i.test(html));
   assert.ok(!/<link[^>]+href="https?:/i.test(html));
 });

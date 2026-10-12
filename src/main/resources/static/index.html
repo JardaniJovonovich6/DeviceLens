@@ -3,94 +3,100 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="color-scheme" content="dark">
-  <meta name="description" content="See what your browser reveals about you. A local browser privacy inspector with permission checks, explanations and practical privacy tips.">
+  <meta name="color-scheme" content="light">
+  <meta name="description" content="Read the information your browser exposes to websites, understand its limits, and follow practical steps to reduce data exposure. Inspection stays in your browser.">
   <title>DeviceLens — Browser Privacy Inspector</title>
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/privacy.css">
   <script type="module" src="/inspector-ui.js"></script>
 </head>
 <body>
-  <a class="skip-link" href="#main">Skip to inspection</a>
+  <a class="skip-link" href="#main">Skip to your browser report</a>
   <header class="site-header">
-    <a class="brand" href="/" aria-label="DeviceLens home"><span class="brand-mark" aria-hidden="true">◉</span>Device<span>Lens</span></a>
-    <nav aria-label="Main navigation"><a href="#signals">Your signals</a><a href="#permissions">Permissions</a><a href="#learn">Learn &amp; protect</a></nav>
-    <span class="local-badge"><span class="dot"></span> Runs locally</span>
+    <a class="brand" href="/" aria-label="DeviceLens home"><span class="brand-mark" aria-hidden="true"></span>DeviceLens</a>
+    <nav aria-label="Main navigation"><a href="#signals">The report</a><a href="#protect">Reduce exposure</a><a href="#contact">Contact</a></nav>
+    <span class="site-description">Browser Privacy Inspector</span>
   </header>
   <main id="main">
-    <section class="hero" aria-labelledby="heading">
-      <div class="hero-copy">
-        <p class="eyebrow"><span class="dot"></span> BROWSER PRIVACY INSPECTOR</p>
-        <h1 id="heading">Your browser tells<br>a story. <span>See yours.</span></h1>
-        <p class="subtitle">Discover the information a website can see, understand what it means, and take control of your digital footprint.</p>
-        <p class="privacy-promise"><span aria-hidden="true">◇</span> Your inspection stays in this tab. No reports are uploaded, stored on our server, or emailed.</p>
-        <div class="hero-actions"><button id="rescan" type="button" class="primary">Inspect again <span aria-hidden="true">↻</span></button><a class="text-link" href="#signals">Explore my signals <span aria-hidden="true">↓</span></a></div>
-        <p id="scan-status" class="status" role="status" aria-live="polite">Inspecting available browser signals locally…</p>
+    <section class="masthead" aria-labelledby="heading">
+      <div class="introduction">
+        <p class="edition-label">A field guide to your browser</p>
+        <h1 id="heading">What your browser<br>reveals about you.</h1>
+        <p class="lead">A website can read more than the text you enter. DeviceLens shows the browser signals available on this visit, where each reading comes from, and what you can do to share less.</p>
+        <div class="intro-actions"><button id="rescan" type="button" class="primary">Refresh readings <span aria-hidden="true">↻</span></button><a href="#why">Why this matters ↓</a></div>
+        <p id="scan-status" class="status" role="status" aria-live="polite">Reading available browser signals locally…</p>
       </div>
-      <aside class="overview-panel" aria-label="Inspection overview">
-        <div class="panel-top"><span>LOCAL EXPOSURE OVERVIEW</span><span class="pill green">On your device</span></div>
-        <div class="lens-graphic" aria-hidden="true"><div class="lens-ring"><span>◉</span></div><span class="orbit-label one">BROWSER</span><span class="orbit-label two">DISPLAY</span><span class="orbit-label three">PREFERENCES</span></div>
-        <div class="summary-stats"><div><strong id="available-count">—</strong><span>Available signals</span></div><div><strong id="limited-count">—</strong><span>Unavailable signals</span></div><div><strong>0</strong><span>Reports uploaded</span></div></div>
-        <p class="panel-note">A visibility summary, not a privacy score or a measure of how unique you are.</p>
+      <aside class="current-reading" aria-labelledby="reading-heading">
+        <p class="reading-label">From this browser, right now</p>
+        <h2 id="reading-heading">Current reading</h2>
+        <dl id="current-reading"><div><dt>Browser</dt><dd>Reading…</dd></div><div><dt>Operating system</dt><dd>Reading…</dd></div><div><dt>Screen</dt><dd>Reading…</dd></div><div><dt>Timezone</dt><dd>Reading…</dd></div></dl>
+        <p>These are live browser observations. Unknown values remain unavailable.</p>
       </aside>
     </section>
-    <div class="trust-strip"><span>✓ No permission prompts</span><span>✓ No tracking cookies</span><span>✓ No fingerprint identifier</span><span>✓ No third-party assets</span></div>
-    <section id="signals" class="section" aria-labelledby="signals-heading">
-      <div class="section-heading"><div><p class="eyebrow">01 / YOUR BROWSER SIGNALS</p><h2 id="signals-heading">What can a website see?</h2><p>Expand a group to see each value, its source, and why it matters.</p></div><div class="report-actions"><button id="copy-report" type="button" class="secondary" disabled>Copy report</button><button id="download-report" type="button" class="secondary" disabled>Download JSON</button></div></div>
-      <div class="filter-bar"><label for="signal-filter">Show signals</label><select id="signal-filter"><option value="all">All signals</option><option value="available">Available</option><option value="unavailable">Unavailable</option></select><span id="signal-count">Inspecting…</span><span class="local-note">Copy and download are local actions.</span></div>
+    <div class="inspection-note"><strong>This inspection stays here.</strong><p>No report is uploaded or emailed. We do not create a fingerprint identifier. Loading the page still sends ordinary requests to the hosting server.</p><a href="#boundaries">Read the limits ↗</a></div>
+    <section id="signals" class="section report-section" aria-labelledby="signals-heading">
+      <div class="section-heading"><div><h2 id="signals-heading">Your browser report</h2><p>Open a group, read the value, then check its source and limitations.</p></div><div class="report-actions"><button id="copy-report" type="button" class="secondary" disabled>Copy report</button><button id="download-report" type="button" class="secondary" disabled>Download JSON</button></div></div>
+      <div class="report-summary" aria-label="Inspection summary"><p><strong id="available-count">—</strong> available</p><p><strong id="limited-count">—</strong> unavailable</p><p class="summary-explanation">Counts show visibility. They do not measure uniqueness or give you a privacy score.</p></div>
+      <div class="filter-bar"><label for="signal-filter">Show</label><select id="signal-filter"><option value="all">All readings</option><option value="available">Available readings</option><option value="unavailable">Unavailable readings</option></select><span id="signal-count">Reading…</span><span class="local-note">Exports save locally on your device.</span></div>
       <div id="signal-groups" class="signal-groups" aria-busy="true"><p class="empty">Reading browser-visible information…</p></div>
-      <details class="raw-data"><summary>Inspect the raw User-Agent string</summary><p>Browsers may reduce or spoof this compatibility string. It is not verified hardware information.</p><pre id="raw-ua">Unavailable</pre></details>
+      <details class="raw-data"><summary>Raw User-Agent string</summary><p>This compatibility string may be reduced or spoofed. It is not a verified description of your hardware.</p><pre id="raw-ua">Unavailable</pre></details>
     </section>
     <section id="permissions" class="section" aria-labelledby="permission-heading">
-      <div class="section-heading"><div><p class="eyebrow">02 / PERMISSION BOUNDARIES</p><h2 id="permission-heading">Access is a separate question.</h2><p>These are permission states for this site, not a list of permissions for every website.</p></div><span class="pill">Queries only · no access requested</span></div>
-      <div id="permission-grid" class="permission-grid" aria-busy="true"></div>
-      <p class="fine-print">“Prompt” means permission would be needed; we never request it. “Denied” can result from your settings or this page’s security policy, which blocks location, camera and microphone access. Permission-query support varies by browser. Clipboard permission is queried without reading your clipboard.</p>
+      <div class="section-heading"><div><h2 id="permission-heading">Permission states for this site</h2><p>A permission query checks the current state. It does not request access to a sensor, your clipboard, or your files.</p></div></div>
+      <dl id="permission-grid" class="permission-list" aria-busy="true"></dl>
+      <p class="fine-print">“Prompt” means access would require permission. We never request it during inspection. “Denied” can reflect your settings or this page’s security policy, which blocks location, camera and microphone access. These states apply to this site, not every website. Unsupported queries are labeled unavailable.</p>
     </section>
-    <section id="boundaries" class="section" aria-labelledby="boundary-heading">
-      <div class="section-heading"><div><p class="eyebrow">03 / THE LIMITS</p><h2 id="boundary-heading">Some things stay out of view.</h2></div></div>
-      <div class="boundary-grid">
-        <article class="boundary-card"><span class="card-kicker">NOT EXPOSED BY THESE APIS</span><h3>Private hardware identifiers</h3><p>IMEI, device serial number, MAC address and your phone number are not available through the browser APIs this tool uses.</p></article>
-        <article class="boundary-card"><span class="card-kicker">NOT ACCESSED</span><h3>Location, camera &amp; microphone</h3><p>We query permission states, not sensor data. We do not request your coordinates, capture media, enumerate devices, or read files.</p></article>
-        <article class="boundary-card"><span class="card-kicker">NOT RELIABLY DETECTABLE</span><h3>VPN, private mode &amp; identity</h3><p>This inspection cannot reliably determine your VPN, private browsing mode, tracking protection, real name, or exact retail device model.</p></article>
+    <section id="why" class="section essay-section" aria-labelledby="why-heading">
+      <div class="essay-heading"><span class="section-index">01</span><h2 id="why-heading">Why these readings matter</h2></div>
+      <div class="essay-body">
+        <p class="essay-lead">You do not need to fill in a form for a website to learn something about your browser.</p>
+        <p>Language, timezone, display size and browser version help websites work on your device. The same signals can also be combined to compare visits or make assumptions about a visitor. A single reading says little; a collection can reveal more than you expect.</p>
+        <p>DeviceLens makes those readings visible so you can ask better questions: <strong>Does this site need that information? Who will receive it? How long will it be kept?</strong> We show the observations and their limits, without claiming that they identify you or prove you are anonymous.</p>
+        <div class="inference-example"><h3>A small example</h3><p>Language and timezone may suggest a broad region. They do not prove where you live. Memory and processor counts may suggest a device class; they do not establish its exact model. Cookies store data in a browser, while fingerprinting compares observable signals—clearing cookies alone does not necessarily stop that comparison.</p></div>
+        <p class="source-note">Background: <a href="https://developer.mozilla.org/en-US/docs/Web/Privacy" target="_blank" rel="noopener noreferrer">MDN’s guide to privacy on the web ↗</a></p>
       </div>
-      <div class="network-note"><span aria-hidden="true">↗</span><div><h3>What about my IP address?</h3><p>A website’s server sees a connection’s public IP when serving the page. JavaScript does not directly provide it. DeviceLens does not look up or display your IP, and application access logging is disabled. Hosting providers may retain infrastructure logs.</p></div></div>
     </section>
     <section id="learn" class="section" aria-labelledby="learn-heading">
-      <div class="section-heading"><div><p class="eyebrow">04 / UNDERSTAND THE FOOTPRINT</p><h2 id="learn-heading">Small clues can add up.</h2><p>These examples explain possible inferences. They do not identify you or calculate a fingerprint.</p></div></div>
-      <div class="learning-grid">
-        <article><span class="step-number">01</span><h3>Language + timezone</h3><p>Together, they may suggest a broad region or preferred language. Neither proves where you live or your nationality.</p></article>
-        <article><span class="step-number">02</span><h3>Display + browser + hardware hints</h3><p>A combination of screen size, browser version and processor count may help distinguish groups of visitors. Shared configurations and privacy protections limit certainty.</p></article>
-        <article><span class="step-number">03</span><h3>Fingerprinting vs. cookies</h3><p>Cookies store data in a browser. Fingerprinting compares observable signals. Removing cookies alone does not necessarily stop comparison of those signals.</p></article>
-      </div>
+      <div class="section-heading"><div><h2 id="learn-heading">Try removing a few clues</h2><p>This local example counts the available values in selected groups. It does not change your browser settings, calculate a fingerprint, or send a report.</p></div></div>
       <div class="simulation">
-        <div><span class="card-kicker">TRY A LOCAL EXPLANATION</span><h3>Which clues would you include?</h3><p>Change the groups to see how much of this inspection would be exposed in a hypothetical report. This does not change your browser settings or send any information.</p></div>
-        <fieldset id="simulation-options"><legend>Hypothetical signal groups</legend><label><input type="checkbox" value="device" checked> Device &amp; hardware</label><label><input type="checkbox" value="browser" checked> Browser &amp; preferences</label><label><input type="checkbox" value="display" checked> Display &amp; input</label><label><input type="checkbox" value="locale" checked> Language &amp; timezone</label><label><input type="checkbox" value="connection" checked> Connection estimates</label></fieldset>
-        <div class="simulation-result"><strong id="simulation-count">—</strong><span>available values included</span><p id="simulation-text">Waiting for the local inspection.</p></div>
+        <fieldset id="simulation-options"><legend>Include these groups in the example</legend><label><input type="checkbox" value="device" checked> Device &amp; hardware</label><label><input type="checkbox" value="browser" checked> Browser &amp; preferences</label><label><input type="checkbox" value="display" checked> Display &amp; input</label><label><input type="checkbox" value="locale" checked> Language &amp; timezone</label><label><input type="checkbox" value="connection" checked> Connection estimates</label></fieldset>
+        <div class="simulation-result" aria-live="polite"><p class="result-number"><strong id="simulation-count">—</strong><span>available values included</span></p><p id="simulation-text">Waiting for the local inspection.</p></div>
       </div>
     </section>
-    <section id="protect" class="section" aria-labelledby="protect-heading">
-      <div class="section-heading"><div><p class="eyebrow">05 / PRACTICAL NEXT STEPS</p><h2 id="protect-heading">Make informed privacy choices.</h2><p>A checklist you can use today. Checks are kept only in this tab.</p></div><span id="checklist-progress" class="pill">0 of 6 reviewed</span></div>
-      <div class="checklist">
-        <label><input type="checkbox"><span><strong>Review site permissions</strong>Remove camera, microphone, location and notification grants from sites that no longer need them.</span></label>
-        <label><input type="checkbox"><span><strong>Use your browser’s tracking protections</strong>Review tracking and third-party cookie settings. Stronger settings can affect some site features.</span></label>
-        <label><input type="checkbox"><span><strong>Enable Global Privacy Control where available</strong>GPC communicates a privacy preference. It does not hide device signals or guarantee that every site complies.</span></label>
-        <label><input type="checkbox"><span><strong>Keep your browser updated</strong>Updates bring security fixes and may improve privacy protections.</span></label>
-        <label><input type="checkbox"><span><strong>Review extensions</strong>Keep only extensions you trust and need; broad permissions can expose browsing activity.</span></label>
-        <label><input type="checkbox"><span><strong>Understand the limits of private browsing and VPNs</strong>Private mode mainly limits local history and session storage. A VPN can change the IP seen by a site; it does not automatically hide browser signals.</span></label>
-      </div>
+    <section id="protect" class="section protect-section" aria-labelledby="protect-heading">
+      <div class="section-heading"><div><h2 id="protect-heading">Six steps to reduce data exposure</h2><p>Start with the settings and habits you control. Mark each step after you review it; checks stay in this tab.</p></div><span id="checklist-progress" class="checklist-progress">0 of 6 reviewed</span></div>
+      <ol class="checklist">
+        <li><label><input type="checkbox"><span><strong>Remove site permissions you no longer need</strong><span>Open your browser’s permission settings and review location, camera, microphone and notifications. Revoke access for unfamiliar or unused sites. Approve a new request only when it is needed for a feature you are using.</span></span></label></li>
+        <li><label><input type="checkbox"><span><strong>Limit tracking across websites</strong><span>Review tracking protection and third-party cookie controls in your browser. Use stronger protection where practical, and review any exceptions you add when a site stops working. Global Privacy Control, where supported, communicates a preference; it does not hide these browser readings.</span></span></label></li>
+        <li><label><input type="checkbox"><span><strong>Check the destination before entering information</strong><span>Read the full domain when following an offer, login link or unexpected message. Open a service from a trusted bookmark if you are unsure. HTTPS encrypts the connection; it does not prove that a website is honest.</span></span></label></li>
+        <li><label><input type="checkbox"><span><strong>Keep the browser current and review extensions</strong><span>Install browser updates and remove extensions you no longer use. Review which extensions can read or change data on websites, and keep that access limited to tools you trust and need.</span></span></label></li>
+        <li><label><input type="checkbox"><span><strong>Protect the accounts that hold your data</strong><span>Use a unique password for each account, store it in a password manager, and enable multi-factor authentication where available. Avoid sending passwords, one-time codes or API keys in messages or feedback reports.</span></span></label></li>
+        <li><label><input type="checkbox"><span><strong>Review a report before sharing it</strong><span>A DeviceLens export includes browser and device observations. Share only what the recipient needs; remove unnecessary values and avoid posting the full report publicly. Private browsing and a VPN do not automatically hide these signals.</span></span></label></li>
+      </ol>
+      <p class="fine-print">These steps reduce exposure; they cannot guarantee that information will never leak. <a href="https://www.cisa.gov/resources-tools/resources/four-cybersecurity-essentials-sltts" target="_blank" rel="noopener noreferrer">CISA’s account and browsing safety guidance ↗</a></p>
+    </section>
+    <section id="boundaries" class="section boundaries-section" aria-labelledby="boundary-heading">
+      <div class="section-heading"><div><h2 id="boundary-heading">What this inspection cannot tell you</h2></div></div>
+      <dl class="boundary-list">
+        <div><dt>Private hardware identifiers</dt><dd>IMEI, serial number, MAC address and your phone number are not exposed by the browser APIs used here.</dd></div>
+        <div><dt>Location, camera or microphone content</dt><dd>We query permission states only. We do not request coordinates, capture media, enumerate devices, or inspect your files.</dd></div>
+        <div><dt>Your identity, VPN or private-browsing mode</dt><dd>These readings cannot reliably establish your real name, VPN use, private mode, tracking-protection settings, or exact retail device model.</dd></div>
+        <div><dt>Whether a website stores your IP</dt><dd>A server sees the connection’s public IP when serving a page. DeviceLens does not look it up or display it, and application access logging is disabled. The hosting provider can retain infrastructure logs.</dd></div>
+      </dl>
     </section>
     <section id="faq" class="section faq" aria-labelledby="faq-heading">
-      <p class="eyebrow">A FEW IMPORTANT ANSWERS</p><h2 id="faq-heading">Privacy, without the guesswork.</h2>
-      <details><summary>Why is my exact device model unavailable?</summary><p>Many browsers do not expose a model, especially desktop browsers and Safari. Android Client Hints sometimes provide a model code. A generic “iPhone” family or a model code is not a verified retail model name. We leave unknown values unavailable.</p></details>
-      <details><summary>Does an unavailable signal mean I am anonymous?</summary><p>No. An unavailable value may reflect browser support, a denied query, or reduced data. Other information such as login accounts, IP addresses and ordinary HTTP headers can still identify or connect activity.</p></details>
-      <details><summary>Are these values accurate hardware specifications?</summary><p>They are browser-reported values or labeled inferences. Memory and network estimates are approximate. Screen dimensions use CSS pixels, which can differ from physical pixels. User-Agent strings and Client Hints can be reduced or spoofed.</p></details>
-      <details><summary>What happens when I copy or download?</summary><p>Your browser creates a report locally. Copy writes it to your clipboard only when you click Copy report. Download saves a JSON file on your device. DeviceLens does not upload either report. Treat the exported file as personal information if you share it yourself.</p></details>
-      <details><summary>What does this tool deliberately avoid?</summary><p>We do not generate a fingerprint hash, draw canvas or audio fingerprints, enumerate installed fonts or media devices, request geolocation, scan local networks, probe private mode, inspect files, or send results to an administrator.</p></details>
-      <details><summary>How can I verify the local-only behavior?</summary><p>Open your browser’s Network developer tools, reload this page and inspect the requests. You should see only this site’s page and static assets, with no report POSTs or third-party requests. The site’s Content Security Policy blocks script connections. Ordinary page requests still reach the hosting server.</p></details>
-      <div class="references"><span>Read the browser documentation:</span><a href="https://developer.mozilla.org/en-US/docs/Web/Privacy" target="_blank" rel="noopener noreferrer">Web privacy ↗</a><a href="https://developer.mozilla.org/en-US/docs/Web/API/NavigatorUAData/getHighEntropyValues" target="_blank" rel="noopener noreferrer">Client Hints ↗</a><a href="https://developer.mozilla.org/en-US/docs/Web/API/Permissions_API" target="_blank" rel="noopener noreferrer">Permissions ↗</a><a href="https://developer.mozilla.org/en-US/docs/Web/API/Navigator/globalPrivacyControl" target="_blank" rel="noopener noreferrer">GPC ↗</a></div>
+      <h2 id="faq-heading">Questions about the report</h2>
+      <details><summary>Why is my exact device model unavailable?</summary><p>Many browsers do not expose a model, especially desktop browsers and Safari. Android Client Hints sometimes provide a model code. A generic “iPhone” family or a model code is not a verified retail name. Unknown values stay unavailable.</p></details>
+      <details><summary>Does an unavailable value mean I am anonymous?</summary><p>No. It may reflect missing browser support, a denied query or reduced data. Login accounts, public IP addresses and ordinary request headers can still connect activity.</p></details>
+      <details><summary>Are these accurate hardware specifications?</summary><p>They are browser-reported values or labeled inferences. Memory and connection estimates are approximate. Screen size uses CSS pixels, which can differ from physical pixels. User-Agent strings and Client Hints can be reduced or spoofed.</p></details>
+      <details><summary>What happens when I copy, download or contact you?</summary><p>Copy writes a report to your clipboard after you click. Download saves JSON on your device. The contact link opens your email app with a subject line; it does not attach a report or send a message automatically. Review any information you choose to include yourself.</p></details>
+      <details><summary>Does a VPN or private window hide these values?</summary><p>A VPN can change the public IP a website sees. Private browsing mainly limits local history and session storage. Neither automatically hides all browser-visible signals.</p></details>
+      <details><summary>How can I check that reports stay local?</summary><p>Open your browser’s Network developer tools, reload this page and inspect the requests. You should see this site’s page and static assets, with no report POSTs or third-party asset requests. The site’s Content Security Policy blocks script connections. Ordinary page requests still reach the host.</p></details>
+      <div class="references"><span>Technical references</span><a href="https://developer.mozilla.org/en-US/docs/Web/API/NavigatorUAData/getHighEntropyValues" target="_blank" rel="noopener noreferrer">Client Hints ↗</a><a href="https://developer.mozilla.org/en-US/docs/Web/API/Permissions_API" target="_blank" rel="noopener noreferrer">Permissions ↗</a><a href="https://developer.mozilla.org/en-US/docs/Web/API/Navigator/globalPrivacyControl" target="_blank" rel="noopener noreferrer">Global Privacy Control ↗</a></div>
     </section>
-    <noscript><div class="notice">JavaScript is disabled. Local inspection needs JavaScript; the explanations and privacy checklist remain readable. No report is uploaded.</div></noscript>
+    <section id="contact" class="contact-section" aria-labelledby="contact-heading"><div><p class="contact-byline">A project by Aman Kumar Shaw</p><h2 id="contact-heading">Have a question or a better idea?</h2><p>If a reading looks wrong, or you would like to talk about browser privacy and this project, write to me. Please leave passwords, account tokens and full device reports out of your message.</p></div><a class="contact-email" href="mailto:ashaw8176@gmail.com?subject=DeviceLens%20question">ashaw8176@gmail.com <span aria-hidden="true">↗</span></a></section>
+    <noscript><p class="notice">JavaScript is disabled. Local inspection needs JavaScript; the explanations and privacy steps remain readable. No report is uploaded.</p></noscript>
   </main>
-  <footer><span class="brand small">DeviceLens</span><span>Know your signals. Understand your boundaries.</span><a href="#heading">Back to top ↑</a></footer>
+  <footer><span class="brand small">DeviceLens</span><a href="https://github.com/JardaniJovonovich6/DeviceLens" target="_blank" rel="noopener noreferrer">Read the source ↗</a><span>Local inspection. Browser-reported values.</span><a href="#heading">Back to top ↑</a></footer>
 </body>
 </html>

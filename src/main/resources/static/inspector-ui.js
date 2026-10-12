@@ -40,7 +40,7 @@ function renderSignals() {
       const value = element('dd');
       value.append(element('strong', signal.available ? 'signal-value' : 'signal-value unavailable', signal.value));
       value.append(element('span', 'signal-kind', signal.available ? signal.inferred ? 'Inferred / reported' : 'Browser-reported' : 'Not exposed'));
-      row.append(term, value, element('p', 'signal-explanation', signal.why)); list.append(row);
+      row.append(term, value, element('dd', 'signal-explanation', signal.why)); list.append(row);
     }
     details.append(list); container.append(details);
   }
@@ -53,7 +53,7 @@ function renderPermissions() {
   const names = { granted: 'Granted for this context', denied: 'Denied / policy blocked', prompt: 'Would require permission', unavailable: 'Query unavailable' };
   for (const permission of snapshot.permissions) {
     const row = element('div', 'permission-row');
-    row.append(element('dt', '', permission.label), element('dd', `permission-state ${permission.state}`, names[permission.state]), element('p', '', permission.explanation));
+    row.append(element('dt', '', permission.label), element('dd', `permission-state ${permission.state}`, names[permission.state]), element('dd', 'permission-explanation', permission.explanation));
     container.append(row);
   }
   container.setAttribute('aria-busy', 'false');

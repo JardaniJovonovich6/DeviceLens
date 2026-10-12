@@ -3,7 +3,8 @@ export const fieldLabels = {
   deviceCategory: 'Device category', manufacturer: 'Manufacturer', model: 'Model',
   modelNumber: 'Model number', operatingSystem: 'Operating system', osVersion: 'OS version',
   browser: 'Browser', browserVersion: 'Browser version', screenResolution: 'Screen resolution',
-  pixelRatio: 'Pixel ratio', deviceMemory: 'Device memory', processorCount: 'Logical processors'
+  pixelRatio: 'Pixel ratio', deviceMemory: 'Device memory', processorCount: 'Logical processors',
+  architecture: 'Architecture', bitness: 'Platform bitness'
 };
 const value = input => typeof input === 'string' && input.trim() ? input.trim().slice(0, 120) : unavailable;
 
@@ -59,6 +60,10 @@ function manufacturerFromModel(report) {
 
 export async function detectDevice(nav = globalThis.navigator || {}, display = globalThis.screen || {}, ratio = globalThis.devicePixelRatio, timeoutMs = 1500) {
   const report = parseUserAgent(nav.userAgent || '', nav);
+  if (/(Chrome|Edg|OPR)\/\d+\.0\.0\.0/.test(nav.userAgent || '')) {
+    report.browserVersion = unavailable;
+    report.osVersion = unavailable;
+  }
   if (Number.isFinite(display.width) && display.width > 0 && Number.isFinite(display.height) && display.height > 0)
     report.screenResolution = `${display.width} × ${display.height} CSS px`;
   if (Number.isFinite(ratio) && ratio > 0) report.pixelRatio = String(ratio);
@@ -94,7 +99,8 @@ export async function detectDevice(nav = globalThis.navigator || {}, display = g
           const found = brands.find(item => item.brand === brand);
           if (found) { report.browser = brand; report.browserVersion = value(found.version); break; }
         }
-        // Architecture/bitness are queried for API compatibility but excluded from the shared report.
+        if (hints.architecture) report.architecture = value(hints.architecture);
+        if (hints.bitness) report.bitness = value(hints.bitness);
       } catch { /* Denied or unsupported high-entropy hints: use available fallback values. */ }
       finally { clearTimeout(timer); }
     }

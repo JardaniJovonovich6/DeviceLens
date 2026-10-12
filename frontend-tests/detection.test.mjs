@@ -29,7 +29,7 @@ test('Client Hints use full versions and Windows platform mapping', async () => 
     }}}, {width: 1920, height: 1080}, 2);
   assert.equal(report.osVersion, '11'); assert.equal(report.browserVersion, '140.0.1.2');
   assert.equal(report.processorCount, '8'); assert.ok(requested.includes('architecture')); assert.ok(requested.includes('bitness'));
-  assert.equal(Object.keys(report).length, 12);
+  assert.equal(Object.keys(report).length, 14);
 });
 test('denied high entropy API degrades gracefully', async () => {
   const report = await detectDevice({userAgentData: {platform: 'Android', getHighEntropyValues: async () => {throw Error('denied');}}}, {}, undefined);

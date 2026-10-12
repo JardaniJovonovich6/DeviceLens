@@ -26,7 +26,7 @@ class PrivacyApplicationTest {
             .andExpect(header().string("Referrer-Policy", "no-referrer"))
             .andExpect(header().doesNotExist("Set-Cookie"));
         mvc.perform(get("/index.html")).andExpect(status().isOk())
-            .andExpect(content().string(containsString("BROWSER PRIVACY INSPECTOR")));
+            .andExpect(content().string(containsString("Browser Privacy Inspector")));
     }
     @Test void formerReportEndpoint_shouldNotAcceptReports() throws Exception {
         mvc.perform(post("/api/device-info").contentType("application/json").content("{\"consent\":true}"))

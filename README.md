@@ -2,6 +2,8 @@
 
 See the browser-visible information a website can read, understand its limits, and review practical privacy choices. Detection and analysis run locally. The Spring Boot server serves static files and a health endpoint; it does not receive inspection results.
 
+Live application: <https://devicelens-xcjh.onrender.com>.
+
 ## Features
 
 - 38 explained signals in five groups: device/hardware, browser/privacy preferences, display/input, language/timezone, and connection estimates.
@@ -11,11 +13,15 @@ See the browser-visible information a website can read, understand its limits, a
 - Copy a plain-text report (with a manual-copy dialog fallback) or download JSON locally. No upload, email or administrator collection.
 - An interactive educational signal-group simulation and a six-item privacy checklist. No uniqueness score, fingerprint identifier or persistence.
 - Explanations of cookies, fingerprinting, public IP visibility, VPN/private-mode limits and unavailable hardware information.
-- Dark responsive UI, keyboard-accessible controls, reduced-motion support, and zero external frontend dependencies.
+- A white and black interface with a restrained olive accent, readable serif headings, and monospaced browser readings. Real observations appear near the top; sections use rules and spacing instead of decorative card grids.
+- A clear explanation of why browser signals matter, six practical steps to reduce data exposure, and a public contact link to Aman Kumar Shaw at `ashaw8176@gmail.com`.
+- Responsive layouts, keyboard-accessible controls, reduced-motion support, and zero external frontend dependencies.
 
 ## Privacy boundaries
 
 The app does not use tracking cookies, local/session storage, geolocation requests, media capture, font/device enumeration, canvas/audio fingerprinting, IP lookup services, or third-party assets. No inspection result is sent to a server. Clipboard writes and downloads occur only when the visitor clicks the corresponding control.
+
+The contact link opens the visitor's email client with a subject line. It does not send a message automatically or attach any inspection values. Visitors choose what to write. The six privacy steps cover permission reviews, tracking controls, phishing awareness, browser and extension maintenance, account protection, and selective report sharing; they reduce risk without promising that leaks are impossible.
 
 Loading the page still sends ordinary HTTP requests and browser headers to the host; the host sees the connection's public IP. Application access logging is disabled, but Render or other infrastructure providers can keep their own logs. Exported reports contain personal browser information and should be shared carefully by their owner.
 
@@ -64,3 +70,11 @@ Free services can sleep and take time to wake up. Once the page and assets load,
 ## Documentation
 
 [Web privacy](https://developer.mozilla.org/en-US/docs/Web/Privacy), [Client Hints](https://developer.mozilla.org/en-US/docs/Web/API/NavigatorUAData/getHighEntropyValues), [Permissions](https://developer.mozilla.org/en-US/docs/Web/API/Permissions_API), [Global Privacy Control](https://developer.mozilla.org/en-US/docs/Web/API/Navigator/globalPrivacyControl), [Render Free](https://render.com/docs/free).
+
+## Git workflow
+
+Use a descriptive feature branch for each change, keep commits focused, and open a pull request to `main`. Describe the user-visible result and validation evidence. Review the diff and wait for the Java, frontend and Docker CI checks to pass before merging. Squash merge a completed feature to keep `main` readable, then remove its remote feature branch. Render deploys `main`; feature branches do not change the public service.
+
+Before publishing, inspect staged, untracked and ignored files. Keep credentials, local exports, screenshots and build output out of commits. `.gitignore` excludes local configuration, `artifacts/` and `target/`. Use `git diff --check` to catch whitespace mistakes.
+
+The visual revision draws on the supplied design guidance and [AxonBuild's article](https://axonbuild.com/blog/how-to-tell-if-an-app-was-vibe-coded/). The design prioritizes actual readings, specific explanations and working controls; appearance is not a claim about how the software was authored.

@@ -29,7 +29,6 @@ function renderSignals() {
     const details = element('details', 'signal-group'); details.dataset.group = group.id;
     details.open = openGroups.has(group.id) || firstRender && group.id === 'device';
     const summary = element('summary');
-    summary.append(element('span', 'group-icon', group.icon));
     const heading = element('span', 'group-title');
     heading.append(element('strong', '', group.title), element('span', '', group.description));
     summary.append(heading, element('span', 'group-count', `${rows.filter(s => s.available).length} / ${rows.length} visible`));
@@ -40,8 +39,8 @@ function renderSignals() {
       const term = element('dt'); term.append(element('span', '', signal.label), element('small', '', signal.source));
       const value = element('dd');
       value.append(element('strong', signal.available ? 'signal-value' : 'signal-value unavailable', signal.value));
-      value.append(element('span', `signal-badge ${signal.available ? 'available' : 'limited'}`, signal.available ? signal.inferred ? 'Inferred / reported' : 'Browser-visible' : 'Not exposed'));
-      row.append(term, value, element('p', 'signal-explanation', signal.why)); list.append(row);
+      value.append(element('span', 'signal-kind', signal.available ? signal.inferred ? 'Inferred / reported' : 'Browser-reported' : 'Not exposed'));
+      row.append(term, value, element('dd', 'signal-explanation', signal.why)); list.append(row);
     }
     details.append(list); container.append(details);
   }
@@ -53,11 +52,22 @@ function renderPermissions() {
   const container = $('#permission-grid'); container.replaceChildren();
   const names = { granted: 'Granted for this context', denied: 'Denied / policy blocked', prompt: 'Would require permission', unavailable: 'Query unavailable' };
   for (const permission of snapshot.permissions) {
-    const card = element('article', 'permission-card');
-    card.append(element('h3', '', permission.label), element('span', `permission-state ${permission.state}`, names[permission.state]), element('p', '', permission.explanation));
-    container.append(card);
+    const row = element('div', 'permission-row');
+    row.append(element('dt', '', permission.label), element('dd', `permission-state ${permission.state}`, names[permission.state]), element('dd', 'permission-explanation', permission.explanation));
+    container.append(row);
   }
   container.setAttribute('aria-busy', 'false');
+}
+
+function renderCurrentReading() {
+  const container = $('#current-reading');
+  container.replaceChildren();
+  for (const [key, label] of [['browser', 'Browser'], ['operatingSystem', 'Operating system'], ['screenResolution', 'Screen'], ['timezone', 'Timezone']]) {
+    const reading = snapshot.signals.find(signal => signal.key === key);
+    const row = element('div');
+    row.append(element('dt', '', label), element('dd', '', reading?.value ?? 'Unavailable'));
+    container.append(row);
+  }
 }
 
 function renderSimulation() {
@@ -79,7 +89,7 @@ async function scan() {
   status.textContent = 'Inspecting browser signals locally. No permission prompts or report uploads.';
   try {
     snapshot = await inspectBrowser();
-    renderSignals(); renderPermissions(); renderSimulation();
+    renderSignals(); renderPermissions(); renderSimulation(); renderCurrentReading();
     const totals = summarize(snapshot.signals);
     $('#available-count').textContent = String(totals.available);
     $('#limited-count').textContent = String(totals.unavailable);

@@ -1,0 +1,40 @@
+spring:
+  application:
+    name: DeviceLens
+  jackson:
+    deserialization:
+      fail-on-unknown-properties: true
+  servlet:
+    multipart:
+      enabled: false
+server:
+  port: ${PORT:8080}
+  forward-headers-strategy: framework
+  shutdown: graceful
+  max-http-request-header-size: 8KB
+  tomcat:
+    threads:
+      max: 16
+      min-spare: 2
+    max-connections: 128
+    accept-count: 32
+    connection-timeout: 10s
+    accesslog:
+      enabled: false
+  error:
+    include-message: never
+    include-stacktrace: never
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+  endpoint:
+    health:
+      show-details: never
+devicelens:
+  email:
+    api-key: ${BREVO_API_KEY:}
+    to: ${REPORT_EMAIL_TO:}
+    from: ${REPORT_EMAIL_FROM:}
+  public-origin: ${PUBLIC_ORIGIN:${RENDER_EXTERNAL_URL:}}

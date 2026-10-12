@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: devicelens
+    runtime: docker
+    plan: free
+    region: singapore
+    healthCheckPath: /actuator/health
+    dockerfilePath: ./Dockerfile
+    envVars:
+      - key: BREVO_API_KEY
+        sync: false
+      - key: REPORT_EMAIL_TO
+        sync: false
+      - key: REPORT_EMAIL_FROM
+        sync: false

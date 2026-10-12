@@ -1,0 +1,22 @@
+name: Verify DeviceLens
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: maven
+      - run: chmod +x mvnw && ./mvnw -B -ntp verify
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --test frontend-tests/*.test.mjs
+      - run: docker build -t devicelens:ci .

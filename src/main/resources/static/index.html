@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <meta name="description" content="Explore the device specifications your browser can reveal. Preview locally and choose whether to share.">
+  <title>DeviceLens — A clearer view of your device</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/styles.css">
+  <script type="module" src="/app.js"></script>
+</head>
+<body>
+  <div class="ambient" aria-hidden="true"></div>
+  <header class="site-header"><a class="brand" href="/" aria-label="DeviceLens home"><span class="brand-mark" aria-hidden="true">◉</span> Device<span>Lens</span></a><span class="header-note"><span class="dot"></span> Your device, in focus</span></header>
+  <main>
+    <section class="hero" aria-labelledby="heading">
+      <div class="hero-copy">
+        <div class="eyebrow"><span class="dot"></span> THE BROWSER DEVICE CHECKER</div>
+        <h1 id="heading">Discover Your<br>Device <span>Specifications</span></h1>
+        <p class="subtitle">Instantly explore the device information available to your browser.</p>
+        <div class="consent-card">
+          <span class="privacy-icon" aria-hidden="true">◇</span>
+          <div><h2>You choose what happens next.</h2><p>This tool detects browser-visible device specifications. If you continue, these details will be shared with the website administrator by email.</p><p class="privacy-note">Preview below. No tracking cookies. No location access.</p></div>
+        </div>
+        <button id="share-button" type="button"><span id="button-label">Continue &amp; Share Device Info</span><span aria-hidden="true">↗</span></button>
+        <progress id="progress" aria-label="Submitting your device report" hidden></progress>
+        <p id="status" class="status" role="status" aria-live="polite">Detecting locally. Nothing has been shared.</p>
+        <p class="hosting-note">Sharing can take longer if the free server needs to wake up.</p>
+      </div>
+      <div class="device-visual" aria-hidden="true">
+        <div class="orbit orbit-one"></div><div class="orbit orbit-two"></div>
+        <div class="visual-label label-top"><span class="dot"></span> BROWSER-VISIBLE DATA</div>
+        <div class="laptop"><div class="laptop-screen"><div class="screen-bar"><i></i><i></i><i></i></div><div class="lens-glyph">◉</div><div class="screen-title">A clearer view.</div><div class="screen-lines"><i></i><i></i><i></i></div></div><div class="laptop-base"></div></div>
+        <div class="phone"><div class="phone-notch"></div><span>◉</span><i></i><i></i></div>
+        <div class="visual-label label-bottom">LOCAL DETECTION <span>✓</span></div>
+      </div>
+    </section>
+    <section class="specifications" aria-labelledby="spec-heading">
+      <div class="section-heading"><div><p class="eyebrow">YOUR DEVICE AT A GLANCE</p><h2 id="spec-heading">See what your browser sees.</h2></div><span id="detection-state" class="state-pill">Detecting locally…</span></div>
+      <dl id="specs" class="spec-grid" aria-busy="true"></dl>
+      <p class="spec-note">Browser privacy protections limit what can be detected. “Unavailable” means your browser did not expose that information. Memory is approximate; screen size is in CSS pixels. Device category may be inferred from browser signals.</p>
+    </section>
+    <section class="features" aria-label="How DeviceLens works"><article><span>01 / DISCOVER</span><h3>Starts on your device</h3><p>Your browser detects available specifications locally when this page opens.</p></article><article><span>02 / DECIDE</span><h3>Sharing is your choice</h3><p>Review your results, then use the single button to share this report by email.</p></article><article><span>03 / UNDERSTAND</span><h3>Only what’s available</h3><p>No IMEI, serial number, phone number, precise location, or persistent identifiers.</p></article></section>
+    <noscript><p class="consent-card">Enable JavaScript to detect your device. No report will be shared while JavaScript is disabled.</p></noscript>
+  </main>
+  <footer><span class="brand small">DeviceLens</span><span>A little clarity. A lot less guesswork.</span><span>Built with privacy in mind.</span></footer>
+</body>
+</html>

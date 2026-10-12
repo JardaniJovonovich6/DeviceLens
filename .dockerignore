@@ -1,0 +1,11 @@
+.git
+.idea
+.env
+.env.*
+!.env.example
+target
+node_modules
+artifacts
+*.log
+README.md
+HELP.md
